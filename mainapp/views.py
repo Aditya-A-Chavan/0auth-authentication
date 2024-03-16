@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth import logout as django_logout
 import json
+from django.http import HttpResponseRedirect
+from decouple import config
 
 # Create your views here.
 def index(request):
@@ -11,7 +14,7 @@ def profile(request):
 
     user_data = {
         'user_id': auth0_user.uid,
-        'name': auth0_user.firstname,
+        'name': user.first_name,
         'picture': auth0_user.extra_data['picture']
     }
     context = {
@@ -20,3 +23,15 @@ def profile(request):
     }
 
     return render(request, 'profile.html', context)
+
+def logout(request):
+    django_logout(request)
+    domain = config('APP_DOMAIN')
+    client_id = config('APP_CLIENT_ID')
+    return_to = 'http://127.0.0.1:8000/'
+
+    return HttpResponseRedirect(return_to)
+
+
+
+

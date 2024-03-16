@@ -54,8 +54,8 @@ SOCIAL_AUTH_AUTH0_SCOPE=[
     'email'
 ]
 
-AUTHENTICATION_BACKEND = {
-    'social_core.backend.auth0.Auth0OAuth2',
+AUTHENTICATION_BACKENDS = {
+    'social_core.backends.auth0.Auth0OAuth2',
     'django.contrib.auth.backends.ModelBackend'
 }
 
